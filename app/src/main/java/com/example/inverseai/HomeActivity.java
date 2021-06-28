@@ -28,8 +28,22 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     protected void initListeners() {
-        ImageView logout;
+        ImageView logout, ann, ann_button;
         logout = findViewById(R.id.logout_button);
+        ann = findViewById(R.id.ann);
+        ann.setOnClickListener(v -> {
+            Log.i("FORM", "ann button pressed.");
+            Intent intent = new Intent(HomeActivity.this,
+                    AnnActivity.class); //accessing ann model screen
+            startActivity(intent);
+        });
+        ann_button = findViewById(R.id.ann_icon);
+        ann_button.setOnClickListener(v -> {
+            Log.i("FORM", "ann button pressed.");
+            Intent intent = new Intent(HomeActivity.this,
+                    AnnActivity.class); //accessing ann model screen
+            startActivity(intent);
+        });
         logout.setOnClickListener(v -> {
             Log.i("FORM", "logout button pressed.");
             Intent userServiceIntent = new Intent(this, UserService.class);

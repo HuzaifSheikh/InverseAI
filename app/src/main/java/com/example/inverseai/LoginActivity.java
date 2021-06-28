@@ -53,7 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         });
         nextButton.setOnClickListener(view -> {
             String usernameValue = usernameField.getText().toString();
+            usernameField.getText().clear();
             String passwordValue = passwordField.getText().toString();
+            passwordField.getText().clear();
             try {
                 String UserString = User.retrieveUser(getApplicationContext(), usernameValue);
                 Log.i("LOGIN", "user found.");
