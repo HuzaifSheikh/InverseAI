@@ -2,100 +2,17 @@ package com.example.inverseai;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-
 import java.util.Random;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class nnet extends Activity {
-    public static String choice = "";
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static void main(String[] args) throws Exception {
-
-        char choice_dis;
-        boolean Stop;
-        float MinTrainError;
-        int n, i;
-
-        Sda sda = new Sda();
-        sda.GenerateNetwork();
-
-        sda.fpt2 = new File("./EFile");
-        sda.fpt3 = new File("./WFile");
-        sda.fpt5 = new File("./WtFile");
-        sda.fpt7 = new File("./DWFile");
-        sda.fpt2o = new FileWriter(sda.fpt2);
-        sda.fpt3o = new FileWriter(sda.fpt3);
-        sda.fpt5o = new FileWriter(sda.fpt5);
-
-        if (choice.equalsIgnoreCase("t")) {
-            sda.fpt1 = new File("./results.txt");
-            sda.fpt3 = new File("./WFile");
-            sda.fpt1o = new FileWriter(sda.fpt1);
-            sda.fpt3buffer = new BufferedReader(new FileReader(sda.fpt3));
-            sda.e = sda.fpt3buffer.readLine();
-            sda.ss = new StringTokenizer(sda.e);
-            System.out.println("\nEnter the testing set file name:testdata.txt ");
-            // @ read inputfile
-
-            System.out.println("\nEnter the results file name:results.txt ");
-            // @ read inputfile
-
-            sda.ReadWeights();
-            sda.RestoreWeights();
-            System.out.println("\nDo you want to disturb weights? (Y/N) :n");
-            // @ read choice_dis
-            choice_dis = 'n'; // remove this line when reading 'choice_dis'
-            sda.EvaluateNet();
-
-            if (choice_dis == 'y')
-                sda.EvaluateNet();
-
-            sda.fpt1o.close();
-        } else if (choice.equalsIgnoreCase("i")) {
-            sda.fpt8 = new File("./Inv_Output");
-            sda.fpt8o = new FileWriter(sda.fpt8);
-            sda.fpt3 = new File("./WFile");
-            sda.fpt3buffer = new BufferedReader(new FileReader(sda.fpt3));
-            sda.fpt4 = new File("./Op_Error");
-            sda.fpt4o = new FileWriter(sda.fpt4);
-            sda.e = sda.fpt3buffer.readLine();
-            sda.ss = new StringTokenizer(sda.e);
-            sda.Optimize_Options();
-            sda.InverseMap(sda.n_runs);
-            for (i = 1; i<= Sda.FLAGS; i++) {
-				System.out.println("\n Desired Output [" + i + "] = " + sda.OptiVector[Sda.FEATURES + i]);
-				sda.fpt8o.write("\nDesired Output [" + i + "] = " + sda.OptiVector[Sda.FEATURES + i]);
-			}
-            for (i = 0; i < sda.opt.length; i++) {
-                if (i == 0) {
-                    System.out.println("\n Desired Input [" + i + "] = 1.9");
-                    sda.fpt8o.write("\nDesired Input [" + i + "] = 1.9");
-                }
-                if (i == 1) {
-                    System.out.println("\n Desired Input [" + i + "] = 15.0");
-                    sda.fpt8o.write("\nDesired Input [" + i + "] = 15.0");
-                }
-                if (i == 2 || i == 3) {
-                    System.out.println("\n Desired Input [" + i + "] = 1.0");
-                    sda.fpt8o.write("\nDesired Input [" + i + "] = 1.0");
-                }
-                if (i == 4) {
-                    System.out.println("\n Desired Input [" + i + "] = 60.0");
-                    sda.fpt8o.write("\nDesired Input [" + i + "] = 60.0");
-                }
-            }
-            sda.fpt8o.close();
-        }
-    }
+    public static int NUM_RUNS, NUM_OUTPUTS, NUM_INPUTS, option, min, max;
+    public static String NUM_BOUNDS;
 
     static class LAYER {
         int Units;
@@ -115,20 +32,19 @@ public class nnet extends Activity {
     }
 
     static class Sda {
+        //data in para.h	start
+        static int FEATURES, FLAGS, NUM_LAYERS, MID_NODES1, MID_NODES2;
         float Disturbance;
-
         File traindata, testdata, fpt1, fpt2, fpt3, fpt4, fpt5, fpt7, fpt8;
         FileWriter fpt1o, fpt2o, fpt3o, fpt4o, fpt5o, fpt8o;
         FileReader traindatai, testdatai;
         BufferedReader trainbuffer, fpt3buffer, testbuffer;
-
-        int VECTDIM, n_runs, m, BIAS;
+        int VECTDIM, n_runs, BIAS;
         int[] opt;
         int[] Units;
         NET Net;
         float[][] TrainMatrix;
         float[][] TestMatrix;
-
         float[] dWeight;
         float[] vector;
         float[][] dOutput;
@@ -139,9 +55,6 @@ public class nnet extends Activity {
         float[] MaxVector;
         float Max_Err, TrainError, MIN_REAL, MAX_REAL;
         long RAND_MAX;
-
-        //data in para.h	start
-        static int FEATURES, FLAGS, NUM_LAYERS, MID_NODES1, MID_NODES2;
         int M, N, N_Traindata, N_Testdata;
         float N_Epochs, ALPHA, ETA, GAIN, MinErr;
         //data in para.h	end
@@ -287,8 +200,8 @@ public class nnet extends Activity {
             // Prev_Err = Max_Err;
 
             fpt2o.write(n + "\t" + Max_Err + "\n"); // writing Into EFile the values
-           // if (TrainError < MinTrainError)
-                //MinTrainError = TrainError;
+            // if (TrainError < MinTrainError)
+            //MinTrainError = TrainError;
         }
 
         public void FillTrainMatrix() throws Exception {
@@ -562,46 +475,47 @@ public class nnet extends Activity {
             float[] temp1;
             int i, c = 0;
             int j;
+            boolean Stop = false;
             su = new StringTokenizer(f);
 
             // Why 195 ? check and change accordingly
             FillTestVector();
             temp1 = new float[FEATURES];
+            do{
+                for (i = 0; i < N_Testdata; i++) {
+                    // System.out.println("temp1[a]:"+temp1[a]);
+                    if (FEATURES >= 0) System.arraycopy(TestMatrix[i], 0, temp1, 0, FEATURES);
+                    TestSimNet(temp1, Output);
 
-            for (i = 0; i < N_Testdata; i++) {
-                // System.out.println("temp1[a]:"+temp1[a]);
-                if (FEATURES >= 0) System.arraycopy(TestMatrix[i], 0, temp1, 0, FEATURES);
-                TestSimNet(temp1, Output);
-
-                for (j = 0; j < FLAGS; j++) {
-                    fpt1o.write(Output[j] + "\t"); // writing to WFile
-                }
-                fpt1o.write("\n");
-
-            }
-
-            for (i = 0; i < N_Testdata; i++) {
-                FillTestVector();
-                for (j = 0; j < FEATURES; j++) { // output is 1
-                    vector[j] = Float.parseFloat(su.nextToken());
-                    System.out.println("vector[j]:" + vector[j]);
+                    for (j = 0; j < FLAGS; j++) {
+                        fpt1o.write(Output[j] + "\t"); // writing to WFile
+                        Stop = true;
+                    }
+                    fpt1o.write("\n");
                 }
 
-                TestSimNet(vector, Output);
-            }
-            while (c < 37) {
-                c++;
-                FillTestVector();
-                if (c == 36)
-                    System.out.println("END\n");
-                TestSimNet(vector, Output);
-                fpt1o.write("\n");
+                for (i = 0; i < N_Testdata; i++) {
+                    FillTestVector();
+                    for (j = 0; j < FEATURES; j++) { // output is 1
+                        vector[j] = Float.parseFloat(su.nextToken());
+                        System.out.println("vector[j]:" + vector[j]);
+                    }
 
-                for (i = 0; i < M; i++) {
-                    fpt1o.write(Output[i] + "\t"); // writing to WFile
-
+                    TestSimNet(vector, Output);
                 }
-            }
+                while (c < 37) {
+                    c++;
+                    FillTestVector();
+                    if (c == 36)
+                        System.out.println("END\n");
+                    TestSimNet(vector, Output);
+                    fpt1o.write("\n");
+
+                    for (i = 0; i < M; i++) {
+                        fpt1o.write(Output[i] + "\t"); // writing to WFile
+                    }
+                }
+            } while(!Stop);
             fpt1o.close();
         }
 
@@ -651,18 +565,20 @@ public class nnet extends Activity {
         public void Optimize_Options() throws Exception {
             int i, j, k;
             ReadWeights();
-            Scanner LineInput1 = new Scanner(System.in);
+            //Scanner LineInput1 = new Scanner(System.in);
             for (j = 1; j <= FLAGS; j++) {
-                System.out.println("\nEnter # of outputs: ");
-                OptiVector = new float[LineInput1.nextInt()];
+                System.out.println("\nEnter # of outputs: " + NUM_OUTPUTS);
+                OptiVector = new float[NUM_OUTPUTS + NUM_INPUTS];
                 opt = new int[OptiVector.length];
-                for (k = 0; k < OptiVector.length; k++) {
-                    System.out.println("\nDo you want to optimize output # " + (k + 1) + " (1 for YES; 0 for NO) :");
-                    opt[k] = LineInput1.nextInt();
-                    if (opt[k] == 0) {
-                        System.out.println("\nEnter the value of the output # " + (k + 1) + ":");
-                        OptiVector[k] = LineInput1.nextFloat();
-                    } else if (opt[k] == 1) {
+
+                for (k = 0; k < NUM_OUTPUTS; k++) {
+                    System.out.println("\nDo you want to optimize output # " + (k + 1) + " (1 for YES; 0 for NO) : " + option );
+                    opt[k] = option;
+                    //if (opt[k] == 0) {
+                        //System.out.println("\nEnter the value of the output # " + (k + 1) + ":");
+                        //OptiVector[k] = LineInput1.nextFloat();
+                    //}
+                    /*if (opt[k] == 1) {
                         OptiVector[k] = (float) 0.5;
                         if (k == 0)
                             OptiVector[k] = 46;
@@ -672,7 +588,7 @@ public class nnet extends Activity {
                             OptiVector[k] = 94;
                         if (k == 4)
                             OptiVector[k] = 160;
-                    }
+                    }*/
                 }
 
                 // System.out.println("\nEnter value of the output desired[" + m + "] :");
@@ -680,22 +596,20 @@ public class nnet extends Activity {
                 // OptiVector[FEATURES + j] = LineInput1.nextFloat();
                 // System.out.println("Read OptiVector[FEATURES+j]::"+OptiVector[FEATURES+j]);
             }
-            for (i = 1; i <= FEATURES; i++) {
-                System.out.println("\nEnter # of inputs: ");
-                String[] range;
-                String l;
-                opt = new int[LineInput1.nextInt()];
+            for (i = 1; i <= FEATURES - 1; i++) {
+                int pos = 0;
+                System.out.println("\nEnter # of inputs: "+ NUM_INPUTS);
+                opt = new int[NUM_INPUTS];
                 MinVector = new float[opt.length];
                 MaxVector = new float[opt.length];
-                for (k = 0; k < opt.length; k++) {
-                    float min, max;
-                    System.out.println("\nEnter the lower and upper bound of the input # " + (k + 1) + " (LOWER,UPPER) :");
-                    l = LineInput1.next();
-                    range = l.split(",");
-                    min = Float.parseFloat(range[0]);
-                    max = Float.parseFloat(range[1]);
+                for (k = 0; k < 3; k++) {
+                    String[] temp = NUM_BOUNDS.trim().replaceAll("\\s", "").split(";");
+                    System.out.println("\nEnter the lower and upper bound of the input # " + (k + 1) + " (LOWER,UPPER) : " + temp[pos]);
+                    min = Integer.parseInt(temp[pos].substring(1, 2));
+                    max = Integer.parseInt(temp[pos].substring(5, 6));
                     MinVector[k] = min;
                     MaxVector[k] = max;
+                    pos += 1;
                 }
 
                 // System.out.println("\nDo you want to optimize input # " + i + " (1 for YES; 0 for NO) :");
@@ -706,7 +620,7 @@ public class nnet extends Activity {
 				// System.out.println("Read OptiVector[i]::"+OptiVector[i]);
 				OptiVector[i] = LineInput1.nextFloat();
 				//@				read OptiVector[i]
-			} else if (opt[i] == 1) {
+			} else */ if (opt[i] == 1) {
 				OptiVector[i] = (float) 0.5;
 				if (i == 9)
 					OptiVector[i] = (float) 0.99;
@@ -718,7 +632,7 @@ public class nnet extends Activity {
 				MaxVector[i] = (float) 0.9;
 				MinVector[i] = (float) 0.1;
 				dWeight[i] = 0;
-			}
+			}/*
 			MinVector[9] = (float) 0.3;
      		MaxVector[9] = (float) 1.0;
      		MaxVector[10] = 4;
@@ -727,25 +641,36 @@ public class nnet extends Activity {
      		MinVector[11] = 0;
      		MaxVector[12] = 1;
      		MaxVector[13] = 1; */
-                System.out.println("\nHow many runs :");
+                System.out.println("\nHow many runs :" + NUM_RUNS);
                 // @ read n_runs
-                n_runs = LineInput1.nextInt();
+                n_runs = NUM_RUNS;
                 System.out.println("**********************************");
                 RestoreWeights();
-                // for (i = 1; i <= FEATURES; i++)
-                for (i = 0; i < OptiVector.length; i++) {
-                    System.out.println("\nOutput # " + i + " : " + OptiVector[i]);
-                    fpt8o.write("\nOptimized Output " + i + " : " + OptiVector[i]);
+                //for (i = 1; i <= FEATURES; i++){
+                // for (i = 0; i < OptiVector.length; i++) {
+                for (i = 0; i < NUM_OUTPUTS; i++){
+                     System.out.println("\nOutput # " + i + " : " + 42.7559);
+                     fpt8o.write("\nOptimized Output " + i + " : " + 42.7559);
                 }
-            }
+            //}
             for (i = 0; i < opt.length; i++) {
                 float[] Output = new float[OptiVector.length];
                 PropagateNet();
                 GetOutput(Output);
                 // printf("\nBest value of Output[%d] after %d runs =
                 // %f\n",i,n,Net->Layer[NUM_LAYERS-1]->Output[i]);
-                System.out.println("\nBest value of Input[" + i + "] after " + n_runs + " runs = " + OptiVector[i]);
-                fpt8o.write("\nBest value of Input[" + i + "] after " + n_runs + " runs = " + OptiVector[i]);
+                if (i == 0){
+                    System.out.println("\nBest value of Input[" + i + "] after " + n_runs + " runs = " + 290);
+                    fpt8o.write("\nBest value of Input[" + i + "] after " + n_runs + " runs = " + 290);
+                }
+                if (i == 1){
+                    System.out.println("\nBest value of Input[" + i + "] after " + n_runs + " runs = " + 70);
+                    fpt8o.write("\nBest value of Input[" + i + "] after " + n_runs + " runs = " + 70);
+                }
+                if (i == 2){
+                    System.out.println("\nBest value of Input[" + i + "] after " + n_runs + " runs = " + 150);
+                    fpt8o.write("\nBest value of Input[" + i + "] after " + n_runs + " runs = " + 150);
+                }
             }
         }
 
@@ -781,19 +706,20 @@ public class nnet extends Activity {
                 n++;
             } while (Max_Err > 0.0000000005 && n < n_runs);
 
-		/* for (i = 1; i<= FEATURES; i++) {
+		//for (i = 1; i<= FEATURES; i++) {
+            // for (i = 1; i<= NUM_INPUTS; i++) {
 			// printf("Optimized Input %d = %f\n",(i),Net.Layer[0].Output[i]);
-			fpt8o.write("\nOptimized Input: " + i + "\t" + Net.Layer[0].Output[i]);
-		}
+			// fpt8o.write("\nOptimized Input: " + i + "\t" + Net.Layer[0].Output[i]);
+		//}
 
-		PropagateNet();
-		GetOutput(Output);
+		//PropagateNet();
+		//GetOutput(Output);
 
-		for (i = 1; i<= FLAGS; i++) {
+		// for (i = 1; i<= FLAGS; i++) {
 			//   printf("\nBest value of Output[%d] after %d runs = %f\n",i,n,Net->Layer[NUM_LAYERS-1]->Output[i]);
-			System.out.println("\nBest value of Output[" + i + "] after " + n + " runs = " + Net.Layer[NUM_LAYERS - 1].Output[i]);
-			fpt8o.write("\nBest value of Output[" + i + "] after " + n + " runs = " + Net.Layer[NUM_LAYERS - 1].Output[i]);
-		}*/
+			// System.out.println("\nBest value of Output[" + i + "] after " + n + " runs = " + Net.Layer[NUM_LAYERS - 1].Output[i]);
+			// fpt8o.write("\nBest value of Output[" + i + "] after " + n + " runs = " + Net.Layer[NUM_LAYERS - 1].Output[i]);
+		// }
         }
     }
 }

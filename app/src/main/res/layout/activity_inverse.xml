@@ -8,6 +8,20 @@
     tools:context=".InverseActivity">
 
     <ImageView
+        android:id="@+id/upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginLeft="124dp"
+        android:layout_marginTop="672dp"
+        android:contentDescription="@string/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/upload_button" />
+
+    <ImageView
         android:id="@+id/back"
         android:layout_width="35dp"
         android:layout_height="21dp"
@@ -26,7 +40,7 @@
         android:layout_marginTop="44dp"
         android:contentDescription="@string/logo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintHorizontal_bias="0.378"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/inverse_title" />
@@ -38,8 +52,184 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="22dp"
         android:layout_marginRight="22dp"
+        android:contentDescription="@string/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/logo"
         app:srcCompat="@drawable/inverse_icon" />
+
+
+    <ImageView
+        android:id="@+id/input_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="131dp"
+        android:layout_marginBottom="548dp"
+        android:contentDescription="@string/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/input_field" />
+
+    <EditText
+        android:id="@+id/outputs_field"
+        android:layout_width="329dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginBottom="548dp"
+        android:background="@null"
+        android:ems="10"
+        android:fontFamily="@font/trade_gothic_condensed_no_18"
+        android:hint="# of Outputs"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/input_field1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="209dp"
+        android:layout_marginBottom="470dp"
+        android:contentDescription="@string/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/optimize_button" />
+
+    <ImageView
+        android:id="@+id/input_field2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="289dp"
+        android:layout_marginBottom="390dp"
+        android:contentDescription="@string/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/input_field" />
+
+    <EditText
+        android:id="@+id/inputs_field"
+        android:layout_width="329dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="293dp"
+        android:layout_marginBottom="390dp"
+        android:background="@null"
+        android:ems="10"
+        android:fontFamily="@font/trade_gothic_condensed_no_18"
+        android:hint="# of Inputs"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/input_field3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="369dp"
+        android:layout_marginBottom="310dp"
+        android:contentDescription="@string/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/input_field" />
+
+    <EditText
+        android:id="@+id/bounds_field"
+        android:layout_width="329dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="373dp"
+        android:layout_marginBottom="310dp"
+        android:background="@null"
+        android:ems="10"
+        android:fontFamily="@font/trade_gothic_condensed_no_18"
+        android:hint="Input Bounds (ex. (1, 10); (2, 4); (3, 11))"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/input_field4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="449dp"
+        android:layout_marginBottom="310dp"
+        android:contentDescription="@string/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/input_field" />
+
+    <EditText
+        android:id="@+id/runs_field"
+        android:layout_width="329dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="449dp"
+        android:layout_marginBottom="310dp"
+        android:background="@null"
+        android:ems="10"
+        android:fontFamily="@font/trade_gothic_condensed_no_18"
+        android:hint="# of Runs"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="525dp"
+        android:layout_marginBottom="230dp"
+        android:contentDescription="@string/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/inverse_button" />
+
+    <ImageView
+        android:id="@+id/export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="601dp"
+        android:layout_marginBottom="230dp"
+        android:contentDescription="@string/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/export_button" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="329dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="212dp"
+        app:layout_constraintEnd_toStartOf="@+id/input_field1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/input_field1"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

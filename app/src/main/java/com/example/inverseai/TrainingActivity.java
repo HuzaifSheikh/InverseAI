@@ -1,19 +1,20 @@
 package com.example.inverseai;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.ImageView;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,6 +23,10 @@ public class TrainingActivity extends AppCompatActivity {
 
     private static final int PICK_FILE = 1;
 
+    @SuppressLint({
+            "SetJavaScriptEnabled",
+            "SdCardPath"
+    })
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,10 @@ public class TrainingActivity extends AppCompatActivity {
         initListeners(); //enables button functions
     }
 
+    @SuppressLint({
+            "SdCardPath",
+            "SetJavaScriptEnabled"
+    })
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     protected void initListeners() {
         ImageView runButton, backButton, uploadButton, retrainButton;
@@ -46,11 +55,13 @@ public class TrainingActivity extends AppCompatActivity {
                     TestingActivity.class); //accessing ann screen
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setCancelable(false);
-            builder.setTitle("Notification");
-            builder.setMessage("Continue training?");
-            builder.setPositiveButton("Neural Network Testing",
+            builder.setTitle("Continue?");
+            builder.setMessage("Are you sure you want to continue training?\nPress 'No' to start testing\nPress 'Yes' to keep training");
+            builder.setPositiveButton("No",
                     (dialog, which) -> startActivity(intent));
-            builder.setNegativeButton("Yes", (dialog, which) -> Log.i("TEST", "retraining."));
+            Intent retrain = new Intent(TrainingActivity.this,
+                    TrainingActivity.class);
+            builder.setNegativeButton("Yes", (dialog, which) -> startActivity(retrain));
             AlertDialog dialog = builder.create();
 
             dialog.show();
@@ -83,10 +94,8 @@ public class TrainingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_FILE)
-        {
-            if (resultCode == RESULT_OK)
-            {
+        if (requestCode == PICK_FILE) {
+            if (resultCode == RESULT_OK) {
                 // Uri uri = data.getData();
                 // String fileContent = readTextFile(uri);
                 Log.i("TEST", "file read.");
@@ -94,11 +103,36 @@ public class TrainingActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("SdCardPath")
+    @SuppressLint({
+            "SdCardPath",
+            "SetJavaScriptEnabled"
+    })
     public void onClick(View v) throws Exception {
         boolean Stop;
         float MinTrainError;
         int n;
+
+        WebView ErrorView = findViewById(R.id.ErrorView);
+        ErrorView.clearView();
+        ErrorView.setWebChromeClient(new WebChromeClient());
+        ErrorView.setInitialScale(200);
+        ErrorView.getSettings().setJavaScriptEnabled(true);
+        ErrorView.getSettings().setAllowContentAccess(true);
+        ErrorView.getSettings().setAllowFileAccess(true);
+        ErrorView.getSettings().setDomStorageEnabled(true);
+        ErrorView.loadUrl("file:///data/user/0/com.example.inverseai/files/ErrorGraph.htm");
+        ErrorView.setVisibility(View.VISIBLE);
+
+        WebView AccuracyView = findViewById(R.id.AccuracyView);
+        AccuracyView.clearView();
+        AccuracyView.setWebChromeClient(new WebChromeClient());
+        AccuracyView.setInitialScale(200);
+        AccuracyView.getSettings().setJavaScriptEnabled(true);
+        AccuracyView.getSettings().setAllowContentAccess(true);
+        AccuracyView.getSettings().setAllowFileAccess(true);
+        AccuracyView.getSettings().setDomStorageEnabled(true);
+        AccuracyView.loadUrl("file:///data/user/0/com.example.inverseai/files/AccuracyGraph.htm");
+        AccuracyView.setVisibility(View.VISIBLE);
 
         nnet.Sda sda = new nnet.Sda(); //initialize sda for training with user input
 
@@ -151,4 +185,5 @@ public class TrainingActivity extends AppCompatActivity {
         sda.fpt3o.close();
         sda.fpt5o.close();
     }
+
 }

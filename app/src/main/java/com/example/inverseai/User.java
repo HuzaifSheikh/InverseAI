@@ -42,22 +42,9 @@ public class User {
     }
 
     /**
-     * Saves this User information to phone storage.
-     *
-     * @param context The activity context calling this method.
-     * @throws IOException Throws file creation error.
-     */
-    public void saveUser(Context context) throws IOException {
-        String fileContents = this.toString();
-        try (FileOutputStream fos = context.openFileOutput(username, Context.MODE_PRIVATE)) {
-            fos.write(fileContents.getBytes());
-        }
-    }
-
-    /**
      * Retrieves the String contents of a particular User from saved data.
      *
-     * @param context The context calling this method.
+     * @param context  The context calling this method.
      * @param username The username of the User to retrieve.
      * @return The String UserString.
      * @throws FileNotFoundException Throws file does not exist error.
@@ -82,11 +69,26 @@ public class User {
     }
 
     /**
+     * Saves this User information to phone storage.
+     *
+     * @param context The activity context calling this method.
+     * @throws IOException Throws file creation error.
+     */
+    public void saveUser(Context context) throws IOException {
+        String fileContents = this.toString();
+        try (FileOutputStream fos = context.openFileOutput(username, Context.MODE_PRIVATE)) {
+            fos.write(fileContents.getBytes());
+        }
+    }
+
+    /**
      * @return Returns username and password of user as a string.
      */
     @Override
     @NonNull
-    public String toString() { return username + " " + password; }
+    public String toString() {
+        return username + " " + password;
+    }
 
     /**
      * @return Returns password of user as a string.

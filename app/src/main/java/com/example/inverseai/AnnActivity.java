@@ -1,8 +1,5 @@
 package com.example.inverseai;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -12,6 +9,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AnnActivity extends AppCompatActivity {
 
@@ -55,41 +55,41 @@ public class AnnActivity extends AppCompatActivity {
             FLAGS = outputNode.getText().toString();
             MID_NODES1 = hl1Node.getText().toString();
             MID_NODES2 = hl2Node.getText().toString();
-            if (!FEATURES.isEmpty()){
+            if (!FEATURES.isEmpty()) {
                 nnet.Sda.FEATURES = Integer.parseInt(FEATURES);
             }
-            if (!FLAGS.isEmpty()){
+            if (!FLAGS.isEmpty()) {
                 nnet.Sda.FLAGS = Integer.parseInt(FLAGS);
             }
-            if (!MID_NODES1.isEmpty()){
+            if (!MID_NODES1.isEmpty()) {
                 nnet.Sda.MID_NODES1 = Integer.parseInt(MID_NODES1);
             }
-            if (!MID_NODES2.isEmpty()){
+            if (!MID_NODES2.isEmpty()) {
                 nnet.Sda.MID_NODES2 = Integer.parseInt(MID_NODES2);
             }
-            if (!FEATURES.isEmpty() && !FLAGS.isEmpty()){
+            if (!FEATURES.isEmpty() && !FLAGS.isEmpty()) {
                 nnet.Sda.NUM_LAYERS = nnet.Sda.FEATURES + nnet.Sda.FLAGS;
             }
             try {
-                if (AnnActivity.FLAGS.isEmpty()){
+                if (AnnActivity.FLAGS.isEmpty()) {
                     nnet.Sda.FEATURES = 2;
                     Log.i("FEATURES", "DEFAULT");
                 }
-                if (AnnActivity.FLAGS.isEmpty()){
+                if (AnnActivity.FLAGS.isEmpty()) {
                     nnet.Sda.FLAGS = 1;
                     Log.i("FLAGS", "DEFAULT");
                 }
-                if (AnnActivity.MID_NODES1.isEmpty()){
+                if (AnnActivity.MID_NODES1.isEmpty()) {
                     nnet.Sda.MID_NODES1 = 15;
                     Log.i("MID_NODES1", "DEFAULT");
                 }
-                if (AnnActivity.MID_NODES2.isEmpty()){
+                if (AnnActivity.MID_NODES2.isEmpty()) {
                     nnet.Sda.MID_NODES2 = 4;
                     Log.i("MID_NODES2", "DEFAULT");
                 }
-                if (AnnActivity.FLAGS.isEmpty() && AnnActivity.FEATURES.isEmpty()){
+                if (AnnActivity.FLAGS.isEmpty() && AnnActivity.FEATURES.isEmpty()) {
                     nnet.Sda.NUM_LAYERS = 3;
-                    Log.i("NUMLAYERS", "DEFAULT");
+                    Log.i("NUM_LAYERS", "DEFAULT");
                 }
                 sda = new nnet.Sda();
                 sda.GenerateNetwork();
@@ -113,14 +113,14 @@ public class AnnActivity extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
 
                 if (AnnActivity.FEATURES.isEmpty() || AnnActivity.FLAGS.isEmpty() ||
-                        AnnActivity.MID_NODES1.isEmpty() || AnnActivity.MID_NODES2.isEmpty()){
+                        AnnActivity.MID_NODES1.isEmpty() || AnnActivity.MID_NODES2.isEmpty()) {
                     dialog.show();
                 }
             } catch (Exception e) {
                 Log.i("ERROR", "failed.");
             }
-            if (!AnnActivity.FEATURES.isEmpty() && !AnnActivity.FLAGS.isEmpty()
-                    && !AnnActivity.MID_NODES1.isEmpty() && !AnnActivity.MID_NODES2.isEmpty()){
+            if (!AnnActivity.FEATURES.isEmpty() && !AnnActivity.FLAGS.isEmpty() &&
+                    !AnnActivity.MID_NODES1.isEmpty() && !AnnActivity.MID_NODES2.isEmpty()) {
                 {
                     Intent intent = new Intent(AnnActivity.this,
                             TrainingActivity.class); //accessing training screen

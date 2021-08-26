@@ -32,74 +32,72 @@
         app:srcCompat="@drawable/login_icon" />
 
     <ImageView
-        android:id="@+id/next_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="280dp"
-        android:contentDescription="@string/button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/next_button" />
-
-    <ImageView
         android:id="@+id/input_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="412dp"
+        android:layout_marginTop="288dp"
         android:contentDescription="@string/text"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/input_field" />
 
+    <ImageView
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="424dp"
+        android:contentDescription="@string/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/next_button" />
+
     <EditText
-        android:background="@null"
         android:id="@+id/username_field"
         android:layout_width="329dp"
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginBottom="412dp"
+        android:layout_marginTop="292dp"
+        android:background="@null"
         android:ems="10"
+        android:fontFamily="@font/trade_gothic_condensed_no_18"
         android:hint="Username"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:fontFamily="@font/trade_gothic_condensed_no_18"
         tools:ignore="HardcodedText" />
 
     <ImageView
         android:id="@+id/input_field1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="344dp"
+        android:layout_marginTop="356dp"
         android:contentDescription="@string/text"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/input_field" />
 
     <EditText
-        android:background="@null"
         android:id="@+id/password_field"
         android:layout_width="329dp"
         android:layout_height="46dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginBottom="344dp"
+        android:layout_marginTop="360dp"
+        android:background="@null"
         android:ems="10"
+        android:fontFamily="@font/trade_gothic_condensed_no_18"
         android:hint="Password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/trade_gothic_condensed_no_18"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,5 @@
 package com.example.inverseai;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +12,27 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class HomeActivity extends AppCompatActivity {
+
+    private final ServiceConnection connection = new ServiceConnection() {
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.i("FORM", "UserService discovered.");
+            UserService.UserServiceBinder binder = (UserService.UserServiceBinder) service;
+            UserService userService = binder.getService();
+            userService.deregisterUser(); // de-register this user
+            Intent intent = new Intent(HomeActivity.this, User.class);
+            startActivity(intent);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {}
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,21 +71,4 @@ public class HomeActivity extends AppCompatActivity {
             Log.i("LOGIN", "user logged out.");
         });
     }
-
-    private final ServiceConnection connection = new ServiceConnection() {
-
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.i("FORM", "UserService discovered.");
-            UserService.UserServiceBinder binder = (UserService.UserServiceBinder) service;
-            UserService userService = binder.getService();
-            userService.deregisterUser(); // de-register this user
-            Intent intent = new Intent(HomeActivity.this, User.class);
-            startActivity(intent);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) { }
-    };
 }

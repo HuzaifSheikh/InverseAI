@@ -1,8 +1,5 @@
 package com.example.inverseai;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +14,26 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.IOException;
 
 public class RegisterActivity extends AppCompatActivity {
     User user;
+    private final ServiceConnection connection = new ServiceConnection() {
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.i("FORM", "UserService discovered.");
+            UserService.UserServiceBinder binder = (UserService.UserServiceBinder) service;
+            UserService userService = binder.getService(); //register this user to the UserService
+            userService.registerUser(user);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {}
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,17 +80,4 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-    private final ServiceConnection connection = new ServiceConnection() {
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.i("FORM", "UserService discovered.");
-            UserService.UserServiceBinder binder = (UserService.UserServiceBinder) service;
-            UserService userService = binder.getService(); //register this user to the UserService
-            userService.registerUser(user);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) { }
-    };
 }
