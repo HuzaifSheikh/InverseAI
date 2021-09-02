@@ -45,20 +45,35 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     protected void initListeners() {
-        ImageView logout, ann, ann_button;
+        ImageView logout, ann, ann_button, simulation, simulation_button;
         logout = findViewById(R.id.logout_button);
+        ann_button = findViewById(R.id.ann_icon);
         ann = findViewById(R.id.ann);
+        simulation_button = findViewById(R.id.simulation_icon);
+        simulation = findViewById(R.id.simulation);
+
         ann.setOnClickListener(v -> {
             Log.i("FORM", "ann button pressed.");
             Intent intent = new Intent(HomeActivity.this,
                     AnnActivity.class); //accessing ann model screen
             startActivity(intent);
         });
-        ann_button = findViewById(R.id.ann_icon);
         ann_button.setOnClickListener(v -> {
             Log.i("FORM", "ann button pressed.");
             Intent intent = new Intent(HomeActivity.this,
                     AnnActivity.class); //accessing ann model screen
+            startActivity(intent);
+        });
+        simulation.setOnClickListener(v -> {
+            Log.i("FORM", "simulation button pressed.");
+            Intent intent = new Intent(HomeActivity.this,
+                    SimulationActivity.class); //accessing ann model screen
+            startActivity(intent);
+        });
+        simulation_button.setOnClickListener(v -> {
+            Log.i("FORM", "simulation button pressed.");
+            Intent intent = new Intent(HomeActivity.this,
+                    SimulationActivity.class); //accessing ann model screen
             startActivity(intent);
         });
         logout.setOnClickListener(v -> {

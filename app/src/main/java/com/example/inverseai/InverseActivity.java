@@ -58,7 +58,7 @@ public class InverseActivity extends AppCompatActivity {
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("text/plain");
 
-            File fpt = new File("/data/user/0/com.example.inverseai/files/InverseUpload.txt");
+            File fpt = new File("file:///android_asset/InverseUpload.txt");
             try {
                 BufferedReader fpt3buffer = new BufferedReader(new FileReader(fpt));
                 String e = fpt3buffer.readLine();
@@ -139,11 +139,11 @@ public class InverseActivity extends AppCompatActivity {
                 int i;
                 nnet.Sda sda = new nnet.Sda();
                 sda.GenerateNetwork();
-                sda.fpt8 = new File("/data/user/0/com.example.inverseai/files/Inv_Output");
+                sda.fpt8 = new File("file:///android_asset/Inv_Output");
                 sda.fpt8o = new FileWriter(sda.fpt8);
-                sda.fpt3 = new File("/data/user/0/com.example.inverseai/files/WFile");
+                sda.fpt3 = new File("file:///android_asset/WFile");
                 sda.fpt3buffer = new BufferedReader(new FileReader(sda.fpt3));
-                sda.fpt4 = new File("/data/user/0/com.example.inverseai/files/Op_Error");
+                sda.fpt4 = new File("file:///android_asset/Op_Error");
                 sda.fpt4o = new FileWriter(sda.fpt4);
                 sda.e = sda.fpt3buffer.readLine();
                 sda.ss = new StringTokenizer(sda.e);

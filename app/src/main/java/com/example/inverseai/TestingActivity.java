@@ -121,7 +121,7 @@ public class TestingActivity extends AppCompatActivity {
         ErrorView.getSettings().setAllowContentAccess(true);
         ErrorView.getSettings().setAllowFileAccess(true);
         ErrorView.getSettings().setDomStorageEnabled(true);
-        ErrorView.loadUrl("file:///data/user/0/com.example.inverseai/files/ErrorGraph.htm");
+        ErrorView.loadUrl("file:///android_asset/ErrorGraph.htm");
         ErrorView.setVisibility(View.VISIBLE);
 
         WebView AccuracyView = findViewById(R.id.AccuracyView);
@@ -132,7 +132,7 @@ public class TestingActivity extends AppCompatActivity {
         AccuracyView.getSettings().setAllowContentAccess(true);
         AccuracyView.getSettings().setAllowFileAccess(true);
         AccuracyView.getSettings().setDomStorageEnabled(true);
-        AccuracyView.loadUrl("file:///data/user/0/com.example.inverseai/files/AccuracyGraph.htm");
+        AccuracyView.loadUrl("file:///android_asset/AccuracyGraph.htm");
         AccuracyView.setVisibility(View.VISIBLE);
 
         nnet.Sda sda = new nnet.Sda(); //initialize sda for training with user input
@@ -142,8 +142,8 @@ public class TestingActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.i("ERROR", "error");
         }
-        sda.fpt1 = new File("/data/user/0/com.example.inverseai/files/results.txt");
-        sda.fpt3 = new File("/data/user/0/com.example.inverseai/files/WFile");
+        sda.fpt1 = new File("file:///android_asset/results.txt");
+        sda.fpt3 = new File("file:///android_asset/WFile");
         sda.fpt1o = new FileWriter(sda.fpt1);
         sda.fpt3buffer = new BufferedReader(new FileReader(sda.fpt3));
         sda.e = sda.fpt3buffer.readLine();

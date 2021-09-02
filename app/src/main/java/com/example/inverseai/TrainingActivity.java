@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStream;
 
 public class TrainingActivity extends AppCompatActivity {
 
@@ -120,7 +121,7 @@ public class TrainingActivity extends AppCompatActivity {
         ErrorView.getSettings().setAllowContentAccess(true);
         ErrorView.getSettings().setAllowFileAccess(true);
         ErrorView.getSettings().setDomStorageEnabled(true);
-        ErrorView.loadUrl("file:///data/user/0/com.example.inverseai/files/ErrorGraph.htm");
+        ErrorView.loadUrl("file:///android_asset/ErrorGraph.htm");
         ErrorView.setVisibility(View.VISIBLE);
 
         WebView AccuracyView = findViewById(R.id.AccuracyView);
@@ -131,7 +132,7 @@ public class TrainingActivity extends AppCompatActivity {
         AccuracyView.getSettings().setAllowContentAccess(true);
         AccuracyView.getSettings().setAllowFileAccess(true);
         AccuracyView.getSettings().setDomStorageEnabled(true);
-        AccuracyView.loadUrl("file:///data/user/0/com.example.inverseai/files/AccuracyGraph.htm");
+        AccuracyView.loadUrl("file:///android_asset/AccuracyGraph.htm");
         AccuracyView.setVisibility(View.VISIBLE);
 
         nnet.Sda sda = new nnet.Sda(); //initialize sda for training with user input
@@ -143,10 +144,10 @@ public class TrainingActivity extends AppCompatActivity {
         }
 
         Log.i("FORM", "run training button pressed.");
-        sda.fpt2 = new File("/data/user/0/com.example.inverseai/files/EFile");
-        sda.fpt3 = new File("/data/user/0/com.example.inverseai/files/WFile");
-        sda.fpt5 = new File("/data/user/0/com.example.inverseai/files/WtFile");
-        sda.fpt7 = new File("/data/user/0/com.example.inverseai/files/DWFile");
+        sda.fpt2 = new File("file:///android_asset/EFile");
+        sda.fpt3 = new File("file:///android_asset/WFile");
+        sda.fpt5 = new File("file:///android_asset/WtFile");
+        sda.fpt7 = new File("file:///android_asset/DWFile");
         sda.fpt2o = new FileWriter(sda.fpt2);
         sda.fpt3o = new FileWriter(sda.fpt3);
         sda.fpt5o = new FileWriter(sda.fpt5);

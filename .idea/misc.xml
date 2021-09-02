@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/AndroidStudioProjects/InverseAI/app/src/main/res/layout/activity_ann.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/User/AndroidStudioProjects/InverseAI/app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/InverseAI/app/src/main/res/layout/activity_simulation.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/InverseAI/app/src/main/res/layout/activity_training.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
